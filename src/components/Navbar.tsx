@@ -8,7 +8,7 @@ const Navbar = () => {
       <div></div>
 
       {/* middle nav links */}
-      <div className="flex gap-3">
+      <div className="flex gap-3 text-gray-500">
         <NavLink to={"/"}>Home</NavLink>
         <NavLink to={"/about"}>About</NavLink>
         <NavLink to={"/career"}>Career</NavLink>
