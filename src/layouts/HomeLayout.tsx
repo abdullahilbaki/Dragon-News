@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 import Header from "../components/Header";
 import LatestNews from "../components/LatestNews";
+import Navbar from "../components/Navbar";
 
 const homeLayout = () => {
   return (
@@ -8,6 +9,7 @@ const homeLayout = () => {
       <header>
         <Header />
         <LatestNews />
+        <Navbar />
       </header>
       <main>
         <section className="left-nav"></section>
