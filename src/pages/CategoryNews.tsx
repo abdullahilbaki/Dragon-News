@@ -13,14 +13,12 @@ const CategoryNews = () => {
 
     if (categoryId === 0) {
       setCategoryNews(news);
-      console.log(news);
       return;
     } else if (categoryId === 1) {
       const filteredNews = news.filter(
         (data: NewsArticle) => data.others.is_today_pick == true
       );
       setCategoryNews(filteredNews);
-      console.log(filteredNews);
       return;
     }
 
@@ -28,7 +26,6 @@ const CategoryNews = () => {
       (data: NewsArticle) => data.category_id === categoryId
     );
     setCategoryNews(filteredNews);
-    console.log(filteredNews);
   }, [news, id]);
 
   return (
