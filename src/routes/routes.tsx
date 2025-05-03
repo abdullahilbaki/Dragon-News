@@ -1,6 +1,7 @@
-import { createBrowserRouter, Navigate } from "react-router";
+import { createBrowserRouter } from "react-router";
 import homeLayout from "../layouts/HomeLayout";
 import CategoryNews from "../pages/CategoryNews";
+import Home from "../pages/Home";
 
 const router = createBrowserRouter([
   {
@@ -9,7 +10,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Navigate to="/category/0" replace />,
+        Component: Home,
       },
       {
         path: "/category/:id",
