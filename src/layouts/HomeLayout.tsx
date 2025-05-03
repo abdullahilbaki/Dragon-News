@@ -1,11 +1,13 @@
-import { Outlet } from "react-router";
+import { Outlet, useNavigation } from "react-router";
 import Header from "../components/Header";
 import LatestNews from "../components/LatestNews";
 import Navbar from "../components/Navbar";
 import LeftAside from "../components/LeftAside";
 import RightAside from "../components/RightAside";
 
-const homeLayout = () => {
+const HomeLayout = () => {
+  const navigation = useNavigation();
+
   return (
     <div className="container mx-auto p-4">
       <header>
@@ -19,7 +21,11 @@ const homeLayout = () => {
           <LeftAside />
         </aside>
         <section className="main col-span-6">
-          <Outlet />
+          {navigation.state === "loading" ? (
+            <span className="loading loading-bars loading-xl mx-auto block mt-8"></span>
+          ) : (
+            <Outlet />
+          )}
         </section>
         <aside className="right-nav col-span-3">
           <RightAside />
@@ -29,4 +35,4 @@ const homeLayout = () => {
   );
 };
 
-export default homeLayout;
+export default HomeLayout;
