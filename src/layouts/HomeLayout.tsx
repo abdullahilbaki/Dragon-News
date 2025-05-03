@@ -14,7 +14,7 @@ const homeLayout = () => {
         <Navbar />
       </header>
 
-      <main className="grid grid-cols-12 gap-4">
+      <main className="grid lg:grid-cols-12 gap-4">
         <aside className="left-nav col-span-3">
           <LeftAside />
         </aside>
