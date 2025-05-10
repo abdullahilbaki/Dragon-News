@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router";
 import { CgProfile } from "react-icons/cg";
 import { useContext } from "react";
-import { AuthContext } from "../provider/AuthProvider";
+import { AuthContext } from "../contexts/authContext";
 
 const Navbar = () => {
   const auth = useContext(AuthContext);

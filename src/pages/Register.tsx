@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router";
-import { AuthContext } from "../provider/AuthProvider";
 import { FirebaseError } from "firebase/app";
+import { AuthContext } from "../contexts/authContext";
 
 const Register = () => {
   const context = useContext(AuthContext);
