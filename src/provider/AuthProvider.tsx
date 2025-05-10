@@ -1,36 +1,61 @@
-import React, { createContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useState,
+  ReactNode,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+} from "react";
+import app from "../firebase/firebase.config";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  UserCredential,
+  User as FirebaseUser,
+  onAuthStateChanged,
+} from "firebase/auth";
 
-type User = {
-  name: string;
-  email: string;
-};
+type User = FirebaseUser | null;
 
-type AuthContextType = {
+interface AuthContextType {
   user: User;
-  setUser: React.Dispatch<React.SetStateAction<User>>;
-};
+  setUser: Dispatch<SetStateAction<User>>;
+  createUser: (email: string, password: string) => Promise<UserCredential>;
+}
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(
+  undefined
+);
 
 type AuthProviderProps = {
   children: ReactNode;
 };
 
+const auth = getAuth(app);
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<User>({
-    name: "abdur rahman rafi",
-    email: "rafi@gmail.com",
-  });
+  const [user, setUser] = useState<User>(null);
+  console.log(user);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const createUser = (email: string, password: string) => {
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
 
   const authData: AuthContextType = {
     user,
     setUser,
+    createUser,
   };
 
   return (
-    <AuthContext.Provider value={authData}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={authData}>{children}</AuthContext.Provider>
   );
 };
 

@@ -50,7 +50,7 @@ const NewsCard = ({ news }: { news: NewsArticle }) => {
           className="w-full object-cover rounded"
         />
 
-        <p className="border-b-2 border-gray-100 pb-3">
+        <div className="border-b-2 border-gray-100 pb-3">
           {news.details.length > 200
             ? news.details.slice(0, 200)
             : news.details}
@@ -58,7 +58,7 @@ const NewsCard = ({ news }: { news: NewsArticle }) => {
           <p className="text-orange-500 font-medium cursor-pointer hover:underline">
             Read More
           </p>
-        </p>
+        </div>
 
         <div className="flex items-center justify-between">
           {/* rating  */}
