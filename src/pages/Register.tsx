@@ -6,7 +6,7 @@ import { AuthContext } from "../contexts/authContext";
 const Register = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("Register must be used within an AuthProvider");
+    throw new Error("Must be used within an AuthProvider");
   }
   const { createUser, setUser } = context;
   const handleRegisterSubmit = async (

@@ -7,6 +7,7 @@ export interface AuthContextType {
   user: FirebaseUserType;
   setUser: Dispatch<SetStateAction<FirebaseUserType>>;
   createUser: (email: string, password: string) => Promise<UserCredential>;
+  logIn: (email: string, password: string) => Promise<UserCredential>;
   logOut: () => Promise<void>;
 }
 
