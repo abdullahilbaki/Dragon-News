@@ -23,7 +23,6 @@ const Register = () => {
     console.log({ name, photo, email, password, terms });
     try {
       const userCredential = await createUser(email, password);
-      // console.log(userCredential.user);
       setUser(userCredential.user);
     } catch (error) {
       if (error instanceof FirebaseError) {
