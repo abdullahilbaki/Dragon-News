@@ -3,6 +3,7 @@ import { NewsArticle } from "../types/news";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { useState } from "react";
 import { SlShare } from "react-icons/sl";
+import { Link } from "react-router";
 
 const NewsCard = ({ news }: { news: NewsArticle }) => {
   const formattedDate = new Date(
@@ -41,9 +42,11 @@ const NewsCard = ({ news }: { news: NewsArticle }) => {
 
       {/* main section */}
       <div className="space-y-4 p-3">
-        <h3 className="font-bold text-gray-700 text-lg cursor-pointer hover:underline">
-          {news.title}
-        </h3>
+        <Link to={`/news-details/${news.id}`}>
+          <h3 className="font-bold text-gray-700 text-lg cursor-pointer hover:underline">
+            {news.title}
+          </h3>
+        </Link>
         <img
           src={news.image_url}
           alt={news.title}
@@ -51,13 +54,18 @@ const NewsCard = ({ news }: { news: NewsArticle }) => {
         />
 
         <div className="border-b-2 border-gray-100 pb-3">
-          {news.details.length > 200
-            ? news.details.slice(0, 200)
-            : news.details}
-          ...
-          <p className="text-orange-500 font-medium cursor-pointer hover:underline">
+          <div>
+            {news.details.length > 200
+              ? news.details.slice(0, 200)
+              : news.details}
+            ...
+          </div>
+          <Link
+            to={`/news-details/${news.id}`}
+            className="text-orange-500 font-medium cursor-pointer hover:underline"
+          >
             Read More
-          </p>
+          </Link>
         </div>
 
         <div className="flex items-center justify-between">
