@@ -21,7 +21,6 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<FirebaseUserType>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  console.log(user);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {

@@ -19,7 +19,6 @@ const Login = () => {
     const formData = new FormData(event.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-    console.log({ email, password });
 
     try {
       const userCredential = await logIn(email, password);

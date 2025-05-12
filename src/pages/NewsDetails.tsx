@@ -10,7 +10,6 @@ const NewsDetails = () => {
   const { id } = useParams();
   const news = useLoaderData() as NewsArticle[];
   const newsDetails = news.find((data) => data.id === id?.toString());
-  console.log(newsDetails);
 
   return (
     <div className="container mx-auto p-4">
