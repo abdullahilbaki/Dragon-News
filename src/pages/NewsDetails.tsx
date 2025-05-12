@@ -9,7 +9,7 @@ const NewsDetails = () => {
   const navigation = useNavigation();
   const { id } = useParams();
   const news = useLoaderData() as NewsArticle[];
-  const newsDetails = news.find((data) => data.id === String(id));
+  const newsDetails = news.find((data) => data.id === id?.toString());
   console.log(newsDetails);
 
   return (
@@ -22,7 +22,9 @@ const NewsDetails = () => {
       <main className="grid lg:grid-cols-12 gap-4">
         <section className="main col-span-9">
           <h3 className="font-semibold">
-            <Link to={"/"} className="hover:underline">Dragon News</Link>
+            <Link to={"/"} className="hover:underline">
+              Dragon News
+            </Link>
           </h3>
           {navigation.state === "loading" ? (
             <span className="loading loading-bars loading-xl mx-auto block mt-8"></span>
