@@ -43,7 +43,7 @@ const NewsCard = ({ news }: { news: NewsArticle }) => {
       {/* main section */}
       <div className="space-y-4 p-3">
         <Link to={`/news-details/${news.id}`}>
-          <h3 className="font-bold text-gray-700 text-lg cursor-pointer hover:underline">
+          <h3 className="my-2 font-bold text-gray-700 text-lg cursor-pointer hover:underline">
             {news.title}
           </h3>
         </Link>
@@ -54,7 +54,7 @@ const NewsCard = ({ news }: { news: NewsArticle }) => {
         />
 
         <div className="border-b-2 border-gray-100 pb-3">
-          <div>
+          <div className="text-gray-500">
             {news.details.length > 200
               ? news.details.slice(0, 200)
               : news.details}

@@ -4,12 +4,14 @@ import LatestNews from "../components/LatestNews";
 import Navbar from "../components/Navbar";
 import LeftAside from "../components/LeftAside";
 import RightAside from "../components/RightAside";
+import ScrollToTop from "../components/ScrollToTop";
 
 const HomeLayout = () => {
   const navigation = useNavigation();
 
   return (
     <div className="container mx-auto p-4">
+      <ScrollToTop />
       <header>
         <Header />
         <LatestNews />

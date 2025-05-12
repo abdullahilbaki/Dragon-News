@@ -1,8 +1,9 @@
-import { useLoaderData, useNavigation, useParams } from "react-router";
+import { Link, useLoaderData, useNavigation, useParams } from "react-router";
 import Header from "../components/Header";
 import RightAside from "../components/RightAside";
 import { NewsArticle } from "../types/news";
 import NewsDetailsCard from "../components/NewsDetailsCard";
+import ScrollToTop from "../components/ScrollToTop";
 
 const NewsDetails = () => {
   const navigation = useNavigation();
@@ -13,13 +14,16 @@ const NewsDetails = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <ScrollToTop />
       <header>
         <Header />
       </header>
 
       <main className="grid lg:grid-cols-12 gap-4">
         <section className="main col-span-9">
-          <h3 className="font-semibold">Dragon News</h3>
+          <h3 className="font-semibold">
+            <Link to={"/"} className="hover:underline">Dragon News</Link>
+          </h3>
           {navigation.state === "loading" ? (
             <span className="loading loading-bars loading-xl mx-auto block mt-8"></span>
           ) : newsDetails ? (
