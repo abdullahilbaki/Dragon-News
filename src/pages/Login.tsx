@@ -1,15 +1,17 @@
 import { FormEvent, useContext } from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../contexts/authContext";
 import { FirebaseError } from "firebase/app";
 
 const Login = () => {
   const context = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
   if (!context) {
     throw new Error("Must be used within an AuthProvider");
   }
 
-  const { logIn } = context;
+  const { logIn, setUser } = context;
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,8 +23,8 @@ const Login = () => {
 
     try {
       const userCredential = await logIn(email, password);
-      // setUser(userCredential.user);
-      console.log(userCredential.user);
+      setUser(userCredential.user);
+      navigate(location.state ? location.state : "/");
     } catch (error) {
       if (error instanceof FirebaseError) {
         console.error("Login error:", error.code, error.message);
