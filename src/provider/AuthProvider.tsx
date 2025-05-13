@@ -6,12 +6,14 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import {
   AuthContext,
   AuthContextType,
   FirebaseUserType,
 } from "../contexts/authContext";
+import { UpdateProfileData } from "../types/news";
 
 type AuthProviderProps = {
   children: ReactNode;
@@ -35,6 +37,10 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
+  const updateUser = (updatedData: UpdateProfileData) => {
+    return updateProfile(auth.currentUser!, updatedData);
+  };
+
   const logIn = (email: string, password: string) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
@@ -51,6 +57,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     logOut,
     loading,
     setLoading,
+    updateUser,
   };
 
   return (

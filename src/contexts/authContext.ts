@@ -1,5 +1,6 @@
 import { createContext, Dispatch, SetStateAction } from "react";
 import { User, UserCredential } from "firebase/auth";
+import { UpdateProfileData } from "../types/news";
 
 export type FirebaseUserType = User | null;
 
@@ -11,6 +12,7 @@ export interface AuthContextType {
   logOut: () => Promise<void>;
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
+  updateUser: (updatedData: UpdateProfileData) => Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(

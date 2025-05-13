@@ -26,3 +26,8 @@ export type NewsArticle = {
   };
   production: boolean;
 };
+
+export type UpdateProfileData = {
+  displayName?: string | null;
+  photoURL?: string | null;
+};

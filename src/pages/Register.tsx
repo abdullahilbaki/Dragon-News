@@ -5,15 +5,17 @@ import { AuthContext } from "../contexts/authContext";
 
 const Register = () => {
   const navigate = useNavigate();
+  const strongPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
   const [error, setError] = useState<string>("");
   const [nameError, setNameError] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>("");
 
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error("Must be used within an AuthProvider");
   }
-  const { createUser, setUser } = context;
+  const { createUser, setUser, updateUser } = context;
   const handleRegisterSubmit = async (
     event: React.FormEvent<HTMLFormElement>
   ) => {
@@ -33,12 +35,34 @@ const Register = () => {
       setNameError("");
     }
 
+    if (!password.match(strongPassword)) {
+      setPasswordError(
+        "Password must be 8+ chars with upper, lower, number & symbol."
+      );
+      return;
+    } else {
+      setPasswordError("");
+    }
+
     console.log({ name, photo, email, password, terms });
 
     try {
       const userCredential = await createUser(email, password);
-      setUser(userCredential.user);
       setError("");
+
+      updateUser({ displayName: name, photoURL: photo })
+        .then(() => {
+          setUser({
+            ...userCredential.user,
+            displayName: name,
+            photoURL: photo,
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+          setUser(userCredential.user);
+        });
+
       navigate("/");
     } catch (error) {
       if (error instanceof FirebaseError) {
@@ -100,6 +124,10 @@ const Register = () => {
             placeholder="Enter your password"
             required
           />
+
+          {passwordError && (
+            <p className="text-xs text-red-500">{passwordError}</p>
+          )}
 
           <div className="flex items-center gap-2 my-2">
             <input
