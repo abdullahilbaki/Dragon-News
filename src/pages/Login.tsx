@@ -1,9 +1,10 @@
-import { FormEvent, useContext } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../contexts/authContext";
 import { FirebaseError } from "firebase/app";
 
 const Login = () => {
+  const [error, setError] = useState<string>("");
   const context = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const Login = () => {
       navigate(location.state ? location.state : "/");
     } catch (error) {
       if (error instanceof FirebaseError) {
-        console.error("Login error:", error.code, error.message);
+        setError(error.code);
       } else {
         console.error("Unknown error occurred during Login");
       }
@@ -59,6 +60,8 @@ const Login = () => {
             placeholder="Enter your password"
             required
           />
+
+          {error && <p className="text-xs text-red-500">{error}</p>}
 
           <button type="submit" className="btn btn-neutral mt-4">
             Login
