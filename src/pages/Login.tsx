@@ -27,7 +27,7 @@ const Login = () => {
       navigate(location.state ? location.state : "/");
     } catch (error) {
       if (error instanceof FirebaseError) {
-        setError(error.code);
+        setError(error.message);
       } else {
         console.error("Unknown error occurred during Login");
       }

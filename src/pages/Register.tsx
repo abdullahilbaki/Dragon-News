@@ -1,9 +1,14 @@
-import React, { useContext } from "react";
-import { Link } from "react-router";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router";
 import { FirebaseError } from "firebase/app";
 import { AuthContext } from "../contexts/authContext";
 
 const Register = () => {
+  const navigate = useNavigate();
+
+  const [error, setError] = useState<string>("");
+  const [nameError, setNameError] = useState<string>("");
+
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error("Must be used within an AuthProvider");
@@ -20,13 +25,24 @@ const Register = () => {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const terms = formData.get("terms") !== null;
+
+    if (name.length < 5) {
+      setNameError("Name should be at least 5 characters.");
+      return;
+    } else {
+      setNameError("");
+    }
+
     console.log({ name, photo, email, password, terms });
+
     try {
       const userCredential = await createUser(email, password);
       setUser(userCredential.user);
+      setError("");
+      navigate("/");
     } catch (error) {
       if (error instanceof FirebaseError) {
-        console.error("Registration error:", error.code, error.message);
+        setError(error.message);
       } else {
         console.error("Unknown error occurred during registration");
       }
@@ -40,6 +56,8 @@ const Register = () => {
           Register your account
         </h3>
         <form onSubmit={handleRegisterSubmit} className="fieldset space-y-1">
+          {error && <p className="text-xs text-red-500">{error}</p>}
+
           <label className="mt-2 label font-semibold text-black">
             Your Name
           </label>
@@ -50,6 +68,7 @@ const Register = () => {
             placeholder="Enter your name"
             required
           />
+          {nameError && <p className="text-xs text-red-500">{nameError}</p>}
 
           <label className="mt-2 label font-semibold text-black">
             Photo URL
