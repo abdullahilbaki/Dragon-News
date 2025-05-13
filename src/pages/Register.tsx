@@ -26,7 +26,7 @@ const Register = () => {
     const photo = formData.get("photo") as string;
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-    const terms = formData.get("terms") !== null;
+    // const terms = formData.get("terms") !== null;
 
     if (name.length < 5) {
       setNameError("Name should be at least 5 characters.");
@@ -44,7 +44,7 @@ const Register = () => {
       setPasswordError("");
     }
 
-    console.log({ name, photo, email, password, terms });
+    // console.log({ name, photo, email, password, terms });
 
     try {
       const userCredential = await createUser(email, password);
